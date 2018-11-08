@@ -7,6 +7,8 @@
     <title>Tables View</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+
 
 </head>
 
@@ -20,9 +22,9 @@
             <br>
 
             <div class="text-center">
-                <a href="/home"><button class="btn btn-lg btn-default"><span class="fa fa-home"></span> View Tables</button></a>
-                <a href="/view"><button class="btn btn-lg btn-primary"><span class="fa fa-credit-card"></span> Make
-                        Reservation</button></a>
+                <a href="/home"><button class="btn btn-lg btn-default"><span class="fa fa-home"></span> Home</button></a>
+                <a href="/view"><button class="btn btn-lg btn-primary"><span class="fa fa-credit-card"></span> View
+                        Tables</button></a>
             </div>
 
         </div>
@@ -53,6 +55,27 @@
 
 
     </div>
+
+    <script>
+    $(".btn-primary").on("click", function(event){
+
+event.preventDefault();
+
+var newReservation = {
+    "Access-Control-Allow-Origin": "*",
+    name: $("#nameInput").val().trim(),
+    phone: $("#phoneInput").val().trim(),
+    email: $("#emailInput").val().trim(),
+    unique: $("#idInput").val().trim()
+};
+
+$.post("/api/tables", newReservation)
+.then(function(data){
+    console.log("reserve.html", data);
+});
+
+});
+    </script>
 
 </body>
 

@@ -2,6 +2,7 @@
 // =============================================================
 var express = require("express");
 var path = require("path");
+var cors = require('cors');
 
 // Sets up the Express App
 // =============================================================
@@ -12,6 +13,7 @@ var tables = [];
 var waitlist = [];
 
 // Sets up the Express app to handle data parsing
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -23,7 +25,7 @@ app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "home.html"));
   });
 
-  app.get("/api/tables", function(req, res) {
+  app.post("/api/tables", function(req, res) {
     return res.json(tables);
   });
 
