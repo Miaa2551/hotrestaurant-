@@ -53,11 +53,42 @@
     </div>
 <!-- Script Code-->
     <script type="text/javascript">
-        $(".btn").on("click", function() 
+        
+        // Grab the form elements
+        var newReservation = 
         {
-          
-           
-        });
+            customerName: $("#nameInput").val().trim(),
+            phoneNumber: $("#phoneInput").val().trim(),
+            customerEmail: $("#emailInput").val().trim(),
+            customerID: $("#idInput").val().trim()
+        };
+        
+        // Testing the code
+        console.log(newReservation);
+        
+        // Post the using the routes 
+        $.post("/api/tables", newReservation,
+        function(data) 
+        {
+
+        // If/else  statement to tell user table is booked or on wait list
+        if (data) 
+        {
+          alert("Yay! Your table is reserved!");
+        }
+        else 
+        {
+          alert("Sorry no tables available you are added to the waitlist");
+        }
+
+        // Clear the form after submitting
+        $("#nameInput").val("");
+        $("#phoneInput").val("");
+        $("#emailInput").val("");
+        $("#idInput").val("");
+
+      });
+
     </script>
 </body>
 
