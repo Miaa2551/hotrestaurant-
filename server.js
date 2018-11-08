@@ -39,6 +39,29 @@ app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "reservation.html"));
   });
 
+// Create New reservervation - takes in JSON input
+app.post("/api/reserve", function(req, res) {
+    // req.body hosts is equal to the JSON post sent from the user
+    // This works because of our body parsing middleware
+    var newReservation = req.body;
+  
+    // Using a RegEx Pattern to remove spaces from newCharacter
+    // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+    newReservation.routeName = newReservation.name.replace(/\s+/g, "").toLowerCase();
+  
+    console.log(newReservation);
+  
+    if(tables.length < 4)  //do we have spots left?
+        tables.push(newReservation);
+    else //too bad we are popular!
+        waitlist.push(newReservation);
+
+    res.json(newReservation);   //readback reservation
+
+    console.log("my reservations with a table: ",tables);
+    console.log("my reservations with a waitlist: ",waitlist);
+
+  });
   
   // Starts the server to begin listening
 // =============================================================
